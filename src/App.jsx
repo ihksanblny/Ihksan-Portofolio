@@ -1,64 +1,53 @@
 // src/App.jsx
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
-// Impor komponen-komponen yang telah kita desain ulang untuk tema gelap
+// Impor komponen-komponen
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
-import Skills from './components/skills';
-import Contact from './components/contact';
-import Footer from './components/footer';
-import My3DScene from './components/My3DScene'; // Pastikan path ini benar
+import Skills from './components/Skills';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import My3DScene from './components/My3DScene';
+import LoadingScreen from './components/LoadingScreen'; // Import LoadingScreen
 
-// Ganti data di bawah ini dengan informasi proyek Anda
-const portfolioProjects = [
-  {
-    title: "SkillMatch Landing Page",
-    description: "A landing page for SkillMatch, a platform connecting learners with mentors and professionals.",
-    image: "/skillmatch1.png", // Ganti dengan path gambar Anda. Contoh: /images/project-1.png
-    tags: ['React', 'Tailwind CSS', 'Vite'],
-    repoUrl: "https://github.com/ihksanblny/SkillMatch-New", // Ganti dengan URL repo Anda
-    liveUrl: "#", // Ganti dengan URL demo live jika ada
-  },
-  {
-    title: "Deploy ML Model with Flask",
-    description: "A project deploying a machine learning model using Flask.",
-    image: "/gcp.png", // Ganti dengan path gambar Anda
-    tags: ['Google Cloud Console', 'Flask', 'Docker'],
-    repoUrl: "https://github.com/ihksanblny/Deploy-Model",
-    liveUrl: "#",
-  },
-  {
-    title: "Dog And Cat Classifier with FastAPI and React",
-    description: "A web application that classifies images of dogs and cats using FastAPI and React.",
-    image: "/web3.png",
-    tags: ['FastAPI', 'React', 'Jupyter Notebook'],
-    repoUrl: "https://github.com/ihksanblny/DogAndCat",
-    liveUrl: "https://dog-and-cat-lilac.vercel.app/",
-  }
-];
+// Import data
+import { portfolioProjects } from './data/projects';
 
 export default function App() {
-  return (
-    <div className="relative"> {/* Tambahkan relative di sini */}
-      {/* 3D Scene sebagai background global */}
-      <div className="fixed top-0 left-0 w-full h-full z-[-1]"> {/* z-[-1] agar di belakang semua */}
-        <My3DScene />
-      </div>
+  const [isLoading, setIsLoading] = useState(true);
 
-      {/* Konten utama aplikasi */}
-      <div className="relative z-[1]"> {/* Konten harus punya z-index lebih tinggi */}
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Projects projects={portfolioProjects} />
-          <Skills />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </div>
+  return (
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <LoadingScreen onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      {!isLoading && (
+        <div className="relative">
+          {/* 3D Scene sebagai background global */}
+          <div className="fixed top-0 left-0 w-full h-full z-[-1]">
+            <My3DScene />
+          </div>
+
+          {/* Konten utama aplikasi */}
+          <div className="relative z-[1]">
+            <Header />
+            <main>
+              <Hero />
+              <About />
+              <Projects projects={portfolioProjects} />
+              <Skills />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
-

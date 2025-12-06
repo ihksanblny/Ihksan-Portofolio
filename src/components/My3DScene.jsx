@@ -1,64 +1,77 @@
-// src/components/My3DScene.jsx
-import React, { useRef } from 'react'; // useRef tidak lagi dibutuhkan jika FloatingGlowSphere dihapus total
-import { Canvas, useFrame } from '@react-three/fiber'; // useFrame juga tidak dibutuhkan jika tidak ada animasi kustom
-import { Stars, Cloud, Clouds, Sparkles } from '@react-three/drei';
+import { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Stars, Sparkles, Float } from '@react-three/drei';
 import * as THREE from 'three';
+
+// Komponen partikel debu kosmik yang bergerak lambat
+function CosmicDust() {
+  const mesh = useRef();
+
+  useFrame((state) => {
+    // Rotasi lambat untuk efek dinamis
+    mesh.current.rotation.y = state.clock.getElapsedTime() * 0.05;
+    mesh.current.rotation.x = state.clock.getElapsedTime() * 0.02;
+  });
+
+  return (
+    <points ref={mesh}>
+      <sphereGeometry args={[15, 64, 64]} />
+      <pointsMaterial
+        size={0.02}
+        color="#D4AF37" // Emas pudar
+        transparent
+        opacity={0.4}
+        sizeAttenuation={true}
+      />
+    </points>
+  );
+}
 
 export default function My3DScene() {
   return (
-    <div style={{ width: '100%', height: '100%' }}>
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-        {/* Ambient & Directional Light */}
-        <color attach="background" args={['#1a1a1a']} />
-        <fog attach="fog" args={['#1a1a1a', 10, 30]} />
-        <ambientLight intensity={0.3} />
-        <directionalLight position={[2, 5, 5]} intensity={1} color="#88faff" />
+    <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: -1 }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} gl={{ antialias: true }}>
+        {/* Background Warna Hitam Pekat */}
+        <color attach="background" args={['#050505']} />
 
-        {/* Stars Background */}
+        {/* Fog untuk kedalaman, menyatu dengan background */}
+        <fog attach="fog" args={['#050505', 5, 20]} />
+
+        {/* Pencahayaan Minimalis */}
+        <ambientLight intensity={0.2} />
+        <pointLight position={[10, 10, 10]} intensity={0.5} color="#D4AF37" />
+
+        {/* Stars: Bintang latar belakang yang halus */}
         <Stars
-          radius={100}
-          depth={80}
-          count={10000}
-          factor={5}
-          fade
+          radius={50}
+          depth={50}
+          count={3000}
+          factor={4}
           saturation={0}
-          speed={0.2}
+          fade
+          speed={0.5}
         />
 
-        {/* Sinematik Clouds (Nebula) */}
-        <Clouds material={THREE.MeshBasicMaterial}>
-          <Cloud
-            bounds={[10, 10, 10]}
-            color="#00ffff"
+        {/* Sparkles: Partikel emas yang melayang dekat kamera */}
+        <Float speed={1} rotationIntensity={0.5} floatIntensity={0.5}>
+          <Sparkles
+            count={50}
+            scale={10}
+            size={2}
             speed={0.2}
-            opacity={0.15}
-            scale={1.5}
-            segments={40}
+            opacity={0.5}
+            color="#D4AF37" // Gold sparkles
+            noise={1}
           />
-          <Cloud
-            bounds={[10, 10, 10]}
-            color="#ff00cc"
-            speed={0.1}
-            opacity={0.12}
-            scale={1.2}
-            segments={30}
-            position={[2, -1, -2]}
-          />
-        </Clouds>
+        </Float>
 
-        {/* Sparkles: bintang berkilau */}
-        <Sparkles
-          count={150}
-          scale={20}
-          size={1}
-          speed={0.4}
-          color="#ffffff"
-          noise={2}
-        />
+        {/* Cosmic Dust: Struktur bola partikel halus untuk tekstur */}
+        <CosmicDust />
 
-        {/* FloatingGlowSphere sudah dihapus dari sini */}
-        {/* <FloatingGlowSphere /> */}
       </Canvas>
+
+      {/* Overlay Gradient untuk memastikan teks terbaca & menyatu dengan footer */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/20 to-dark-bg pointer-events-none" />
     </div>
   );
 }

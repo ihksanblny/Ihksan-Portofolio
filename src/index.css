@@ -1,38 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Hapus import Poppins karena kita sudah pakai link di index.html untuk performa lebih baik */
 
-/* Perintah dasar Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Lapisan 'base' ini adalah KUNCINYA.
-  Ini menerapkan gaya ke elemen dasar seperti 'body'.
-*/
 @layer base {
   body {
-    /* Menerapkan warna background gelap dan warna teks terang ke seluruh halaman */
-    @apply bg-dark-bg text-text-light font-sans antialiased;
+    @apply bg-dark-bg text-text-light font-sans antialiased selection:bg-primary selection:text-dark-bg;
   }
 
   html {
     @apply scroll-smooth;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-wide;
+  }
 }
 
-/* Custom Scrollbar (Bonus) */
+/* Custom Scrollbar Elegant */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #2c2c2c;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00ffcc;
-  border-radius: 10px;
+  background: #333;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00b38f;
+  background: #D4AF37; /* Gold on hover */
+}
+
+/* Utilitas tambahan untuk efek kaca yang halus */
+.glass-panel {
+  @apply bg-dark-surface/30 backdrop-blur-md border border-white/5;
 }
