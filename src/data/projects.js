@@ -20,7 +20,7 @@ export const portfolioProjects = [
     {
         title: "Go Notes API",
         description: "A robust backend service for a note-taking application, built to master the fundamentals of Go language and clean architecture.",
-        image: "/go-notes.png",
+        image: "/go-notes.webp",
         tags: ['Go', 'Vue.js', 'REST API', 'Backend'],
         repoUrl: "https://github.com/ihksanblny/go-notes-api.git",
         liveUrl: null,
