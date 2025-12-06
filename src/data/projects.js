@@ -2,7 +2,7 @@ export const portfolioProjects = [
     {
         title: "Sistem Informasi Karyawan",
         description: "A comprehensive employee management system developed during a 3-month internship. Features include attendance tracking, leave management, and performance evaluation.",
-        image: "/si-karyawan.png",
+        image: "/simple-porto.jpg",
         tags: ['Laravel', 'Blade', 'Alpine.js', 'Tailwind CSS', 'MySQL'],
         repoUrl: "https://github.com/ihksanblny/SI-Karyawan-ProjectMagang.git",
         liveUrl: "https://renoabiramasakti.com/",
@@ -11,7 +11,7 @@ export const portfolioProjects = [
     {
         title: "LinkHub",
         description: "A personalized link management platform inspired by Linktree. Built with a modern stack for high performance and scalability.",
-        image: "/linkhub.png",
+        image: "/linkhub.webp",
         tags: ['Next.js', 'TypeScript', 'Supabase', 'Shadcn UI', 'Node.js'],
         repoUrl: "https://github.com/ihksanblny/link-hub.git",
         liveUrl: null,
