@@ -30,6 +30,7 @@ export default function App() {
       {!isLoading && (
         <div className="relative">
           {/* 3D Scene sebagai background global */}
+          {/* 3D Scene sebagai background global */}
           <div className="fixed top-0 left-0 w-full h-full z-[-1]">
             <My3DScene />
           </div>

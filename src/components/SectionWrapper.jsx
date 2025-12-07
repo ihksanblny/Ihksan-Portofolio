@@ -4,9 +4,9 @@ const SectionWrapper = ({ children, id, title, subtitle }) => (
     <motion.section
         id={id}
         className="min-h-screen container mx-auto py-24 px-6 flex flex-col justify-center relative z-10"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        initial={{ opacity: 1, y: 0 }}
+        // whileInView={{ opacity: 1, y: 0 }}
+        // viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1, ease: "easeOut" }}
     >
         <div className="mb-16 text-center">

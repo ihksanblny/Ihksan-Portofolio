@@ -1,12 +1,9 @@
 import { FaGithub, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 
 const ProjectCard = ({ title, description, image, tags, repoUrl, liveUrl, featured }) => {
   return (
-    <motion.div
-      className={`group relative bg-dark-surface/40 backdrop-blur-sm border border-white/5 rounded-sm overflow-hidden flex flex-col ${featured ? 'md:col-span-2 md:flex-row' : ''}`}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+    <div
+      className={`group relative bg-dark-surface/40 backdrop-blur-sm border border-white/5 rounded-sm overflow-hidden flex flex-col ${featured ? 'md:col-span-2 md:flex-row' : ''} hover:-translate-y-1 transition-transform duration-300 ease-out`}
     >
       {/* Image Container */}
       <div className={`relative overflow-hidden ${featured ? 'w-full md:w-3/5 h-64 md:h-auto' : 'h-56 w-full'}`}>
@@ -70,7 +67,7 @@ const ProjectCard = ({ title, description, image, tags, repoUrl, liveUrl, featur
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

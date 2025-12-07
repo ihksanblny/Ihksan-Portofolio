@@ -9,11 +9,7 @@ export default function Hero() {
       className="min-h-screen flex items-center justify-center text-center relative z-10"
     >
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
+        <div className="animate-fade-in-up">
           <div className="mb-8 relative inline-block">
             <div className="absolute inset-0 border border-primary/30 rounded-full transform rotate-45 scale-105"></div>
             <img
@@ -27,11 +23,11 @@ export default function Hero() {
             Full Stack Developer
           </h2>
 
-          <h1 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-7xl font-serif font-bold text-white mb-6 tracking-tight">
             Ihksan Balany
           </h1>
 
-          <p className="max-w-xl mx-auto text-text-muted text-lg font-light leading-relaxed mb-10">
+          <p className="max-w-xl mx-auto text-text-muted text-base md:text-lg font-light leading-relaxed mb-10">
             Crafting digital experiences with a focus on minimal aesthetics and functional elegance.
           </p>
 
@@ -49,7 +45,7 @@ export default function Hero() {
           >
             <div className="w-[1px] h-16 bg-gradient-to-b from-primary/0 via-primary/50 to-primary/0"></div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
