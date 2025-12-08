@@ -2,19 +2,58 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
+const NAV_LINKS = ['About', 'Projects', 'Skills', 'Contact'];
+
+const DesktopNav = () => (
+  <nav className="hidden md:flex space-x-10">
+    {NAV_LINKS.map((link) => (
+      <a
+        key={link}
+        href={`#${link.toLowerCase()}`}
+        className="text-xs text-text-muted hover:text-white transition-colors duration-300 uppercase tracking-[0.15em]"
+      >
+        {link}
+      </a>
+    ))}
+  </nav>
+);
+
+const MobileMenu = ({ isOpen, onClose }) => (
+  <AnimatePresence>
+    {isOpen && (
+      <motion.div
+        initial={{ x: '100%' }}
+        animate={{ x: 0 }}
+        exit={{ x: '100%' }}
+        transition={{ type: "tween", duration: 0.3, ease: "easeOut" }}
+        className="fixed inset-0 bg-[#0a0a0a] z-[90] flex flex-col items-center justify-center md:hidden"
+      >
+        <nav className="flex flex-col space-y-8 text-center">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              className="text-3xl text-white font-serif font-bold hover:text-primary transition-colors duration-300"
+              onClick={onClose}
+            >
+              {link}
+            </a>
+          ))}
+        </nav>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navLinks = ['About', 'Projects', 'Skills', 'Contact'];
 
   const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
@@ -29,20 +68,8 @@ export default function Header() {
           IHKSAN<span className="text-primary">.</span>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-10">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="text-xs text-text-muted hover:text-white transition-colors duration-300 uppercase tracking-[0.15em]"
-            >
-              {link}
-            </a>
-          ))}
-        </nav>
+        <DesktopNav />
 
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-white text-2xl z-[101] relative focus:outline-none"
           onClick={toggleMenu}
@@ -51,31 +78,7 @@ export default function Header() {
           {mobileMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
 
-        {/* Mobile Navigation Overlay */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "tween", duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-0 bg-[#0a0a0a] z-[90] flex flex-col items-center justify-center md:hidden"
-            >
-              <nav className="flex flex-col space-y-8 text-center">
-                {navLinks.map((link) => (
-                  <a
-                    key={link}
-                    href={`#${link.toLowerCase()}`}
-                    className="text-3xl text-white font-serif font-bold hover:text-primary transition-colors duration-300"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link}
-                  </a>
-                ))}
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       </div>
     </header>
   );
